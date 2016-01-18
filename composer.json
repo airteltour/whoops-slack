@@ -1,0 +1,27 @@
+{
+  "name": "oponiti/whoops-slack",
+  "description": "Whoops Slack Handler.",
+  "keywords": ["whoops", "slack", "whoops slack", "oponiti"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Changwan Jun",
+      "email": "im@wani.kr"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "maknz/slack": "^1.7",
+    "filp/whoops": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Oponiti\\Whoops\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.x-dev"
+    }
+  }
+}
