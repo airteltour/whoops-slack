@@ -6,22 +6,22 @@ SERVER : `<?php echo gethostname(); ?>`
 
 - $_SERVER :
 <?php
-foreach ($_SERVER as $value) {
-    $this->printArguments($value, 1);
+foreach ($_SERVER as $key => $value) {
+    $this->printArguments($value, 1, $key);
 }
 ?>
 
 - $_POST :
 <?php
-foreach ($_POST as $value) {
-    $this->printArguments($value, 1);
+foreach ($_POST as $key => $value) {
+    $this->printArguments($value, 1, $key);
 }
 ?>
 
 - $_GET :
 <?php
-foreach ($_GET as $value) {
-    $this->printArguments($value, 1);
+foreach ($_GET as $key => $value) {
+    $this->printArguments($value, 1, $key);
 }
 ?>
 

@@ -42,15 +42,18 @@ class SlackHandler extends Handler
         $this->client->send($message);
     }
 
-    protected function printArguments($param, $indent = 0)
+    protected function printArguments($param, $indent = 0, $key = null)
     {
         for ($i = 0; $i < $indent; $i++) {
             echo "    ";
         }
+        if (isset($key)) {
+            echo "[{$key}] => ";
+        }
         if (is_array($param)) {
             echo "Array[\n";
-            foreach ($param as $v) {
-                $this->printArguments($v, $indent + 1);
+            foreach ($param as $k => $v) {
+                $this->printArguments($v, $indent + 1, $k);
             }
             for ($i = 0; $i < $indent; $i++) {
                 echo "    ";
