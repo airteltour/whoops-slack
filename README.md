@@ -1,19 +1,33 @@
 Whoops Slack
 ===
 
-Whoops라이브러리에서 Slack을 사용할 수 있도록 지원합니다.
+'Whoops Slack' is a handler for [Whoops](https://github.com/filp/whoops). It sends message to [Slack](http://slack.com) when error is occured.
 
-## 사용법
+## Installing
+Use [Composer](http://getcomposer.org) to install Whoops into your project:
+
+```
+composer require oponiti/whoops-slack
+```
+
+## Usage
 
 ```php
-$client = new Client('https://hooks.slack.com/services/T00000000/B00000000/xxxxxxxxxxxxxxxxxxxxxxxx', [
-    'username' => 'Oponiti',
+$client = new Maknz\Slack\Client('https://hooks.slack.com/services/T00000000/B00000000/xxxxxxxxxxxxxxxxxxxxxxxx', [
+    'username' => 'your-user-name',
     'channel' => '#your-channel'
 ]);
 
-$whoops = new Run();
-$whoops->pushHandler(new PrettyPageHandler());
-$whoops->pushHandler(new SlackHandler($client));
-
+$whoops = new Whoops\Run;
+$whoops->pushHandler(new Oponiti\Whoops\SlackHandler($client));
 $whoops->register();
 ```
+
+## Offering Infomation 
+
+- File name and line
+- Error message
+- $_SERVER
+- $_POST
+- $_GET
+- Backtrace
