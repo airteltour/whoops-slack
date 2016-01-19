@@ -12,6 +12,9 @@ class SlackHandler extends Handler
     /** @var string */
     protected $template;
 
+    /** @var callable */
+    protected $filter;
+
     /**
      * @param \Maknz\Slack\Client $client
      * @param string $template
@@ -22,19 +25,41 @@ class SlackHandler extends Handler
         $this->template = isset($template) ? $template : __DIR__ . '/template.php';
     }
 
+    /**
+     * @param callable $filter
+     */
+    public function filter(callable $filter)
+    {
+        $this->filter = $filter;
+    }
+
     public function handle()
     {
         $exception = $this->getException();
         $inspector = $this->getInspector();
 
-        ob_start();
-        require $this->template;
-
-        $contents = ob_get_contents();
-        ob_end_clean();
-        $this->sendToSlack($contents);
+        if (
+            !isset($this->filter) ||
+            call_user_func($this->filter, $exception, $inspector) === true
+        ) {
+            $contents = $this->getTemplateContents([
+                'exception' => $exception,
+                'inspector' => $inspector,
+            ]);
+            $this->sendToSlack($contents);
+        }
 
         return Handler::DONE;
+    }
+
+    protected function getTemplateContents(array $values = [])
+    {
+        extract($values);
+        ob_start();
+        require $this->template;
+        $contents = ob_get_contents();
+        ob_end_clean();
+        return $contents;
     }
 
     protected function sendToSlack($message)

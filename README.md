@@ -23,6 +23,18 @@ $whoops->pushHandler(new Oponiti\Whoops\SlackHandler($client));
 $whoops->register();
 ```
 
+## Filter
+
+```php
+$handler = new Oponiti\Whoops\SlackHandler($client);
+$handler->filter(function (\Exception $exception, \Whoops\Exception\Inspector $inspector) {
+    if ($exception instanceof \Some\Notice\Exception) {
+        return false;
+    }
+    return true;
+});
+```
+
 ## Offering Infomation 
 
 - File name and line
