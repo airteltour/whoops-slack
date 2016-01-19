@@ -14,9 +14,18 @@
     "maknz/slack": "^1.7",
     "filp/whoops": "^1.1|^2"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^5.1",
+    "mockery/mockery": "^0.9.4"
+  },
   "autoload": {
     "psr-4": {
       "Oponiti\\Whoops\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Oponiti\\Whoops\\": "tests/"
     }
   },
   "extra": {
