@@ -1,6 +1,12 @@
 Whoops Slack
 ===
 
+[![Latest Stable Version](https://poser.pugx.org/oponiti/whoops-slack/v/stable.svg)](https://packagist.org/packages/oponiti/whoops-slack)
+[![Latest Unstable Version](https://poser.pugx.org/oponiti/whoops-slack/v/unstable.svg)](https://packagist.org/packages/oponiti/whoops-slack)
+[![Total Downloads](https://poser.pugx.org/oponiti/whoops-slack/downloads.svg)](https://packagist.org/packages/oponiti/whoops-slack)
+[![License](https://poser.pugx.org/oponiti/whoops-slack/license.svg)](https://packagist.org/packages/oponiti/whoops-slack)
+[![Build Status](https://img.shields.io/travis/oponiti/whoops-slack/master.svg)](https://travis-ci.org/oponiti/whoops-slack)
+
 'Whoops Slack' is a handler for [Whoops](https://github.com/filp/whoops). It sends message to [Slack](http://slack.com) when error is occured.
 
 ## Installing
