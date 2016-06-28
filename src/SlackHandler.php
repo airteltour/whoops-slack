@@ -9,20 +9,27 @@ class SlackHandler extends Handler
     /** @var \Maknz\Slack\Client */
     protected $client;
 
-    /** @var string */
-    protected $template;
+    /** @var array */
+    protected $config;
 
     /** @var callable */
     protected $filter;
+    
+    /** @var array */
+    protected $arguments = [];
 
     /**
      * @param \Maknz\Slack\Client $client
-     * @param string $template
+     * @param array $config
      */
-    public function __construct(Client $client, $template = null)
+    public function __construct(Client $client, array $config = [])
     {
         $this->client = $client;
-        $this->template = isset($template) ? $template : __DIR__ . '/template.php';
+        $this->config = $config + [
+                'template' => __DIR__ . '/template.php',
+                'max_array_depth' => 3,
+                'max_array_count' => 5,
+            ];
     }
 
     /**
@@ -31,6 +38,15 @@ class SlackHandler extends Handler
     public function filter(callable $filter)
     {
         $this->filter = $filter;
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $value
+     */
+    public function setArgument($name, $value)
+    {
+        $this->arguments[$name] = $value;
     }
 
     public function handle()
@@ -45,7 +61,7 @@ class SlackHandler extends Handler
             $contents = $this->getTemplateContents([
                 'exception' => $exception,
                 'inspector' => $inspector,
-            ]);
+            ] + $this->arguments);
             $this->sendToSlack($contents);
         }
 
@@ -56,7 +72,7 @@ class SlackHandler extends Handler
     {
         extract($values);
         ob_start();
-        require $this->template;
+        require $this->config['template'];
         $contents = ob_get_contents();
         ob_end_clean();
         return $contents;
@@ -67,20 +83,30 @@ class SlackHandler extends Handler
         $this->client->send($message);
     }
 
-    protected function printArguments($param, $indent = 0, $key = null)
+    protected function printArguments($param, $depth = 0, $key = null)
     {
-        for ($i = 0; $i < $indent; $i++) {
+        for ($i = 0; $i < $depth; $i++) {
             echo "    ";
+        }
+        if ($this->config['max_array_depth'] < $depth) {
+            echo "...many depth...\n";
+            return;
         }
         if (isset($key)) {
             echo "[{$key}] => ";
         }
         if (is_array($param)) {
             echo "Array[\n";
+            $count = 0;
             foreach ($param as $k => $v) {
-                $this->printArguments($v, $indent + 1, $k);
+                if ($count >= $this->config['max_array_count']) {
+                    echo "    ...many count...\n";
+                    break;
+                }
+                $this->printArguments($v, $depth + 1, $k);
+                $count++;
             }
-            for ($i = 0; $i < $indent; $i++) {
+            for ($i = 0; $i < $depth; $i++) {
                 echo "    ";
             }
             echo "],\n";
