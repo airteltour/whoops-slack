@@ -29,6 +29,47 @@ $whoops->pushHandler(new Oponiti\Whoops\SlackHandler($client));
 $whoops->register();
 ```
 
+## Config
+
+```php
+new Oponiti\Whoops\SlackHandler($client, [
+    'template' => __DIR__ . '/other/yours.template.php',
+    'max_array_depth' => 3,
+    'max_array_count' => 5,
+]);
+```
+
+**max_array_depth**
+
+Array value's maximum depth. You will show the message like below.
+
+`max_array_depth = 2`
+
+```
+Array[
+    [depth1] => Array[
+        [depth2] => Array[
+            ...many depth...
+        ],
+    ],
+],
+```
+
+**max_array_count**
+
+Array value's maximum count. You will show the message like below.
+
+`max_array_count = 3`
+
+```
+Array[
+    [0] => Array[],
+    [1] => Array[],
+    [2] => Array[],
+    ...many count...
+],
+```
+
 ## Filter
 
 ```php
