@@ -1,5 +1,5 @@
 {
-  "name": "oponiti/whoops-slack",
+  "name": "aireltour/whoops-slack",
   "description": "Whoops Slack Handler.",
   "keywords": ["whoops", "slack", "whoops slack", "oponiti"],
   "license": "MIT",
