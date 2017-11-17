@@ -1,5 +1,5 @@
 <?php
-namespace Oponiti\Whoops;
+namespace Airteltour\Whoops;
 
 use Maknz\Slack\Client;
 use Whoops\Handler\Handler;
