@@ -20,12 +20,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Oponiti\\Whoops\\": "src/"
+      "Airteltour\\Whoops\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Oponiti\\Whoops\\": "tests/"
+      "Airteltour\\Whoops\\": "tests/"
     }
   },
   "extra": {

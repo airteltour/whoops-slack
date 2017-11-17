@@ -13,7 +13,7 @@ Whoops Slack
 Use [Composer](http://getcomposer.org) to install Whoops into your project:
 
 ```
-composer require oponiti/whoops-slack
+composer require Airteltour/whoops-slack
 ```
 
 ## Usage
@@ -25,14 +25,14 @@ $client = new Maknz\Slack\Client('https://hooks.slack.com/services/T00000000/B00
 ]);
 
 $whoops = new Whoops\Run;
-$whoops->pushHandler(new Oponiti\Whoops\SlackHandler($client));
+$whoops->pushHandler(new Airteltour\Whoops\SlackHandler($client));
 $whoops->register();
 ```
 
 ## Config
 
 ```php
-new Oponiti\Whoops\SlackHandler($client, [
+new Airteltour\Whoops\SlackHandler($client, [
     'template' => __DIR__ . '/other/yours.template.php',
     'max_array_depth' => 3,
     'max_array_count' => 5,
@@ -73,7 +73,7 @@ Array[
 ## Filter
 
 ```php
-$handler = new Oponiti\Whoops\SlackHandler($client);
+$handler = new Airteltour\Whoops\SlackHandler($client);
 $handler->filter(function (\Exception $exception, \Whoops\Exception\Inspector $inspector) {
     if ($exception instanceof \Some\Notice\Exception) {
         return false;
